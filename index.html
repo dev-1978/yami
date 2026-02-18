@@ -19,7 +19,6 @@ overflow:hidden;
 background:#000;
 }
 
-/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -29,12 +28,11 @@ object-fit:cover;
 z-index:-2;
 }
 
-/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
 inset:0;
-background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.75));
+background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.85));
 z-index:-1;
 }
 
@@ -70,75 +68,69 @@ margin-bottom:35px;
 opacity:.7;
 }
 
-/* BOTONES */
-
 .buttons{
 display:flex;
-gap:10px;
+gap:14px;
 }
 
 .main-btn{
 flex:1;
 position:relative;
 overflow:hidden;
-padding:18px 10px;
-border-radius:12px;
+padding:26px 10px;
+border-radius:16px;
 text-decoration:none;
-background:rgba(0,0,0,.65);
-border:1px solid rgba(255,255,255,.35);
-box-shadow:0 10px 30px rgba(0,0,0,.6);
+background:rgba(0,0,0,.8);
+border:2px solid rgba(255,255,255,.35);
+box-shadow:0 15px 40px rgba(0,0,0,.9);
 transition:.3s;
 display:flex;
 align-items:center;
 justify-content:center;
 }
 
-/* LOGOS */
 .main-btn img{
-max-width:85px;
+max-width:120px;
 height:auto;
-filter:drop-shadow(0 0 6px rgba(255,255,255,.25));
+filter:drop-shadow(0 0 10px rgba(255,255,255,.35));
 }
 
-/* BRILLO */
 .main-btn::after{
 content:'';
 position:absolute;
 top:-50%;
 left:-60%;
-width:30%;
+width:35%;
 height:200%;
-background:rgba(255,255,255,.18);
+background:rgba(255,255,255,.28);
 transform:rotate(25deg);
-animation:shine 5s infinite;
+animation:shine 4.5s infinite;
 }
 
 @keyframes shine{
 0%{left:-60%;}
-20%{left:130%;}
-100%{left:130%;}
+20%{left:140%;}
+100%{left:140%;}
 }
 
 .main-btn:hover{
-transform:scale(1.05);
+transform:scale(1.06);
 }
-
-/* COLORES BORDE */
 
 .ganamos{
 border-color:#a36bff;
-box-shadow:0 0 18px rgba(163,107,255,.3);
+box-shadow:0 0 22px rgba(163,107,255,.45);
 }
 
 .celu{
 border-color:#e6c76a;
-box-shadow:0 0 18px rgba(230,199,106,.3);
+box-shadow:0 0 22px rgba(230,199,106,.45);
 }
 
 .footer{
 margin-top:50px;
 font-size:.7rem;
-opacity:.5;
+opacity:.6;
 }
 </style>
 </head>
@@ -163,16 +155,14 @@ Atención directa y premios reales.
 
 <div class="buttons">
 
-<!-- GANAMOS - NAHUEL -->
 <a class="main-btn ganamos"
 href="https://wa.me/5491164799806?text=Hola%20Nahuel,%20vengo%20de%20parte%20de%20Yamila%20☺️,%20mi%20nombre%20es%20:">
-<img src="logo.png" alt="Ganamos">
+<img src="logo.png">
 </a>
 
-<!-- CELUAPUESTAS - CLAU -->
 <a class="main-btn celu"
 href="https://wa.me/5491132592708?text=Holaaa%20Clau%20quiero%20un%20usuario%20vengo%20de%20parte%20de%20Yamila,%20mi%20nombre%20es%20:">
-<img src="celuapuestas.png" alt="Celuapuestas">
+<img src="celuapuestas.png">
 </a>
 
 </div>
