@@ -19,6 +19,7 @@ overflow:hidden;
 background:#000;
 }
 
+/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -28,6 +29,7 @@ object-fit:cover;
 z-index:-2;
 }
 
+/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -68,26 +70,34 @@ margin-bottom:35px;
 opacity:.7;
 }
 
-/* BOTÓN ÚNICO */
+/* BOTONES */
 
-.single-btn{
-display:inline-block;
-padding:16px 28px;
+.buttons{
+display:flex;
+gap:12px;
+justify-content:center;
+}
+
+.main-btn{
+flex:1;
+max-width:160px;
+position:relative;
+overflow:hidden;
+padding:14px 8px;
 border-radius:14px;
 text-decoration:none;
 font-family:'Cinzel',serif;
 letter-spacing:2px;
-font-size:.85rem;
+font-size:.8rem;
 color:#fff;
 background:rgba(0,0,0,.6);
-border:1.5px solid #a36bff;
-box-shadow:0 10px 25px rgba(163,107,255,.35);
-position:relative;
-overflow:hidden;
+border:1.5px solid;
+box-shadow:0 10px 25px rgba(0,0,0,.7);
 transition:.25s;
 }
 
-.single-btn::after{
+/* BRILLO */
+.main-btn::after{
 content:'';
 position:absolute;
 top:-50%;
@@ -105,9 +115,13 @@ animation:shine 5s infinite;
 100%{left:140%;}
 }
 
-.single-btn:hover{
+.main-btn:hover{
 transform:scale(1.05);
 }
+
+/* COLORES */
+.ganamos{ border-color:#a36bff; }
+.celu{ border-color:#e6c76a; }
 
 .footer{
 margin-top:50px;
@@ -129,16 +143,27 @@ opacity:.6;
 <div class="subtitle">ACCESO EXCLUSIVO</div>
 
 <p class="text">
-Atención directa.<br>
-Contacto inmediato.
+Entraste al lugar correcto.<br>
+Atención directa y premios reales.
 </p>
 
 <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
-<a class="single-btn"
+<div class="buttons">
+
+<!-- GANAMOS - NAHUEL -->
+<a class="main-btn ganamos"
 href="https://wa.me/5491164799806?text=Hola%20Nahuel,%20vengo%20de%20parte%20de%20Yamila%20☺️,%20mi%20nombre%20es%20:">
-CONTACTAR AHORA
+GANAMOS
 </a>
+
+<!-- CELUAPUESTAS - CLAU -->
+<a class="main-btn celu"
+href="https://wa.me/5491132592708?text=Holaaa%20Clau%20quiero%20un%20usuario%20vengo%20de%20parte%20de%20Yamila,%20mi%20nombre%20es%20:">
+CELUAPUESTAS
+</a>
+
+</div>
 
 <div class="footer">
 JUGÁ RESPONSABLEMENTE
