@@ -19,7 +19,6 @@ overflow:hidden;
 background:#000;
 }
 
-/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -29,7 +28,6 @@ object-fit:cover;
 z-index:-2;
 }
 
-/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -70,34 +68,26 @@ margin-bottom:35px;
 opacity:.7;
 }
 
-/* BOTONES */
+/* BOTÓN ÚNICO */
 
-.buttons{
-display:flex;
-gap:12px;
-justify-content:center;
-}
-
-.main-btn{
-flex:1;
-max-width:160px;
-position:relative;
-overflow:hidden;
-padding:14px 8px;
+.single-btn{
+display:inline-block;
+padding:16px 28px;
 border-radius:14px;
 text-decoration:none;
 font-family:'Cinzel',serif;
 letter-spacing:2px;
-font-size:.8rem;
+font-size:.85rem;
 color:#fff;
 background:rgba(0,0,0,.6);
-border:1.5px solid;
-box-shadow:0 10px 25px rgba(0,0,0,.7);
+border:1.5px solid #a36bff;
+box-shadow:0 10px 25px rgba(163,107,255,.35);
+position:relative;
+overflow:hidden;
 transition:.25s;
 }
 
-/* BRILLO */
-.main-btn::after{
+.single-btn::after{
 content:'';
 position:absolute;
 top:-50%;
@@ -115,18 +105,8 @@ animation:shine 5s infinite;
 100%{left:140%;}
 }
 
-.main-btn:hover{
+.single-btn:hover{
 transform:scale(1.05);
-}
-
-/* COLORES */
-
-.ganamos{
-border-color:#a36bff;
-}
-
-.celu{
-border-color:#e6c76a;
 }
 
 .footer{
@@ -149,25 +129,16 @@ opacity:.6;
 <div class="subtitle">ACCESO EXCLUSIVO</div>
 
 <p class="text">
-Entraste al lugar correcto.<br>
-Atención directa y premios reales.
+Atención directa.<br>
+Contacto inmediato.
 </p>
 
 <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
-<div class="buttons">
-
-<a class="main-btn ganamos"
+<a class="single-btn"
 href="https://wa.me/5491164799806?text=Hola%20Nahuel,%20vengo%20de%20parte%20de%20Yamila%20☺️,%20mi%20nombre%20es%20:">
-GANAMOS
+CONTACTAR AHORA
 </a>
-
-<a class="main-btn celu"
-href="https://wa.me/5491132592708?text=Holaaa%20Clau%20quiero%20un%20usuario%20vengo%20de%20parte%20de%20Yamila,%20mi%20nombre%20es%20:">
-CELUAPUESTAS
-</a>
-
-</div>
 
 <div class="footer">
 JUGÁ RESPONSABLEMENTE
