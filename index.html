@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="icon" type="image/png" href="joker.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -37,7 +36,7 @@ body::before{
 content:"";
 position:fixed;
 inset:0;
-background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.85));
+background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.9));
 z-index:-1;
 }
 
@@ -86,7 +85,7 @@ font-family:'Cinzel',serif;
 letter-spacing:2px;
 font-size:.9rem;
 color:#fff;
-background:rgba(0,0,0,.7);
+background:rgba(0,0,0,.75);
 border:1.5px solid #e6c76a;
 box-shadow:0 10px 25px rgba(0,0,0,.7);
 transition:.3s;
@@ -138,11 +137,13 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-const trailCount = 5;
+const trailCount = 4;
 const jokers = [];
 const positions = [];
 let target = { x: 0, y: 0 };
 let active = false;
+
+const button = document.querySelector(".main-btn");
 
 for(let i=0;i<trailCount;i++){
 
@@ -150,12 +151,11 @@ for(let i=0;i<trailCount;i++){
     img.src = "joker.png";
     img.className = "joker";
 
-    const size = 110 - (i*18);
+    const size = 100 - (i*20);
     img.style.width = size + "px";
-    img.style.left = "0px";
-    img.style.top = "0px";
     img.style.opacity = "0";
-    img.style.zIndex = 1000 - i; // líder arriba
+    img.style.zIndex = 1000 - i;
+    img.style.filter = "brightness(0.85) contrast(1.1) drop-shadow(0 0 15px rgba(255,0,0,.25))";
 
     document.body.appendChild(img);
 
@@ -163,20 +163,32 @@ for(let i=0;i<trailCount;i++){
     positions.push({x:0,y:0});
 }
 
+function isOverButton(x,y){
+    const rect = button.getBoundingClientRect();
+    return (
+        x > rect.left &&
+        x < rect.right &&
+        y > rect.top &&
+        y < rect.bottom
+    );
+}
+
 function updateTarget(x,y){
+
+    if(isOverButton(x,y)){
+        jokers.forEach(j => j.style.opacity = "0");
+        return;
+    }
 
     if(!active){
         active = true;
-
-        jokers.forEach(j=>{
-            j.style.opacity = "1";
-        });
-
         positions.forEach(p=>{
             p.x = x;
             p.y = y;
         });
     }
+
+    jokers.forEach(j => j.style.opacity = "0.85");
 
     target.x = x;
     target.y = y;
@@ -186,14 +198,12 @@ function animate(){
 
     if(active){
 
-        // líder
-        positions[0].x += (target.x - positions[0].x) * 0.12;
-        positions[0].y += (target.y - positions[0].y) * 0.12;
+        positions[0].x += (target.x - positions[0].x) * 0.08;
+        positions[0].y += (target.y - positions[0].y) * 0.08;
 
-        // cola
         for(let i=1;i<trailCount;i++){
-            positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
-            positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
+            positions[i].x += (positions[i-1].x - positions[i].x) * 0.06;
+            positions[i].y += (positions[i-1].y - positions[i].y) * 0.06;
         }
 
         jokers.forEach((j,i)=>{
@@ -218,4 +228,4 @@ animate();
 </script>
 
 </body>
-</html> 
+</html>
