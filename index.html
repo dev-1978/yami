@@ -23,6 +23,7 @@ user-select:none;
 -webkit-tap-highlight-color:transparent;
 }
 
+/* VIDEO FONDO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -32,6 +33,7 @@ object-fit:cover;
 z-index:-2;
 }
 
+/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -133,9 +135,17 @@ JUGÁ RESPONSABLEMENTE
 
 <script>
 let joker = null;
+let targetX = 0;
+let targetY = 0;
+let currentX = 0;
+let currentY = 0;
+let animationFrame;
 
 document.addEventListener("touchstart", function(e){
 let touch = e.touches[0];
+
+targetX = touch.clientX;
+targetY = touch.clientY;
 
 joker = document.createElement("img");
 joker.src = "joker.png";
@@ -143,31 +153,46 @@ joker.style.position = "fixed";
 joker.style.width = "85px";
 joker.style.pointerEvents = "none";
 joker.style.zIndex = "9999";
-joker.style.transition = "transform 0.08s linear";
+joker.style.opacity = "1";
 
 document.body.appendChild(joker);
 
-moveJoker(touch);
+currentX = targetX;
+currentY = targetY;
+
+animate();
 });
 
 document.addEventListener("touchmove", function(e){
 if(!joker) return;
 let touch = e.touches[0];
-moveJoker(touch);
+targetX = touch.clientX;
+targetY = touch.clientY;
 });
 
 document.addEventListener("touchend", function(){
 if(joker){
-joker.style.transition = "opacity 0.25s ease";
+joker.style.transition = "opacity 0.3s ease";
 joker.style.opacity = "0";
-setTimeout(()=> joker.remove(),250);
+setTimeout(()=>{
+cancelAnimationFrame(animationFrame);
+joker.remove();
 joker = null;
+},300);
 }
 });
 
-function moveJoker(touch){
-joker.style.left = (touch.clientX - 42) + "px";
-joker.style.top = (touch.clientY - 42) + "px";
+function animate(){
+if(!joker) return;
+
+// Cuanto más chico el número, más “trencito”
+currentX += (targetX - currentX) * 0.12;
+currentY += (targetY - currentY) * 0.12;
+
+joker.style.left = (currentX - 42) + "px";
+joker.style.top = (currentY - 42) + "px";
+
+animationFrame = requestAnimationFrame(animate);
 }
 </script>
 
