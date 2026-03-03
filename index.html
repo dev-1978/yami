@@ -22,6 +22,7 @@ background:#000;
 user-select:none;
 }
 
+/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -31,6 +32,7 @@ object-fit:cover;
 z-index:-2;
 }
 
+/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -102,7 +104,7 @@ opacity:.6;
 position:fixed;
 pointer-events:none;
 z-index:3;
-will-change:transform;
+opacity:0;
 }
 </style>
 </head>
@@ -140,53 +142,57 @@ JUGÁ RESPONSABLEMENTE
 const trailLength = 6;
 const jokers = [];
 const positions = [];
+let mouse = {x:window.innerWidth/2,y:window.innerHeight/2};
 let active = false;
 
-// Crear jokers invisibles al inicio
+// crear jokers
 for(let i=0;i<trailLength;i++){
     const img = document.createElement("img");
     img.src = "joker.png";
     img.className = "joker";
-    img.style.opacity = 0;
     document.body.appendChild(img);
     jokers.push(img);
-    positions.push({x:-200,y:-200}); // fuera de pantalla
+    positions.push({x:mouse.x,y:mouse.y});
 }
 
 function activate(x,y){
-    if(!active){
-        active = true;
-        for(let i=0;i<trailLength;i++){
-            positions[i] = {x,y};
-        }
-    }
+    active = true;
+    mouse.x = x;
+    mouse.y = y;
 }
 
-function move(e){
-    activate(e.clientX, e.clientY);
-    positions[0] = {x:e.clientX,y:e.clientY};
-}
-
-document.addEventListener("mousemove", move);
-document.addEventListener("touchstart", e=>{
-    const t = e.touches[0];
-    activate(t.clientX, t.clientY);
+document.addEventListener("mousemove",e=>{
+    activate(e.clientX,e.clientY);
 });
-document.addEventListener("touchmove", e=>{
+
+document.addEventListener("click",e=>{
+    activate(e.clientX,e.clientY);
+});
+
+document.addEventListener("touchstart",e=>{
     const t = e.touches[0];
-    move(t);
+    activate(t.clientX,t.clientY);
+});
+
+document.addEventListener("touchmove",e=>{
+    const t = e.touches[0];
+    activate(t.clientX,t.clientY);
 });
 
 function animate(){
     if(active){
+
+        // cabeza principal más suave
+        positions[0].x += (mouse.x - positions[0].x) * 0.10;
+        positions[0].y += (mouse.y - positions[0].y) * 0.10;
+
         for(let i=1;i<trailLength;i++){
-            positions[i].x += (positions[i-1].x - positions[i].x) * 0.12;
-            positions[i].y += (positions[i-1].y - positions[i].y) * 0.12;
+            positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
+            positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
         }
 
         jokers.forEach((img,index)=>{
-            let baseSize = 120;
-            let size = baseSize - (index * 18);
+            let size = 130 - (index * 20);
             if(size < 35) size = 35;
 
             img.style.width = size + "px";
@@ -203,4 +209,4 @@ animate();
 </script>
 
 </body>
-</html> 
+</html>
