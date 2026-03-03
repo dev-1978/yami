@@ -6,142 +6,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="icon" type="image/png" href="joker.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* Reset y Base */
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    min-height:100vh;
-    font-family:'Montserrat',sans-serif;
-    color:#fff;
-    text-align:center;
-    overflow:hidden;
-    background:#000;
-    user-select:none;
+min-height:100vh;
+font-family:'Montserrat',sans-serif;
+color:#fff;
+text-align:center;
+overflow:hidden;
+background:#000;
+user-select:none;
 }
 
-/* VIDEO Y OVERLAY */
+/* VIDEO */
 .bg-video{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-2;
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
 }
 
+/* OVERLAY */
 body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9));
-    z-index:-1;
+content:"";
+position:fixed;
+inset:0;
+background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.85));
+z-index:-1;
 }
 
-/* CONTENEDOR PRINCIPAL */
 .container{
-    max-width:420px;
-    margin:0 auto;
-    padding:110px 20px 60px;
-    position: relative;
-    z-index: 10;
+max-width:420px;
+margin:0 auto;
+padding:110px 20px 60px;
+position:relative;
+z-index:5;
 }
 
 h1{
-    font-family:'Cinzel',serif;
-    font-size:2.8rem;
-    letter-spacing:6px;
-    color:#e6c76a;
-    text-shadow: 0 0 15px rgba(230, 199, 106, 0.5);
-    margin-bottom:10px;
+font-family:'Cinzel',serif;
+font-size:2.6rem;
+letter-spacing:6px;
+color:#e6c76a;
+margin-bottom:10px;
 }
 
 .subtitle{
-    letter-spacing:4px;
-    margin-bottom:30px;
-    opacity:.9;
-    font-size: 0.9rem;
+letter-spacing:4px;
+margin-bottom:30px;
+opacity:.9;
 }
 
 .text{
-    line-height:1.6;
-    margin-bottom:35px;
-    font-weight: 400;
+line-height:1.6;
+margin-bottom:35px;
 }
 
 .age{
-    font-size:.8rem;
-    letter-spacing:2px;
-    margin-bottom:35px;
-    color: #ff4d4d; /* Rojo para advertencia */
+font-size:.8rem;
+letter-spacing:2px;
+margin-bottom:35px;
+opacity:.7;
+color:#ff4d4d;
 }
 
-/* BOTÓN DE FUEGO */
-.main-btn {
-    display: inline-block;
-    padding: 18px 35px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-family: 'Cinzel', serif;
-    letter-spacing: 3px;
-    font-size: 1rem;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #e6c76a;
-    position: relative;
-    overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 0 10px rgba(230, 199, 106, 0.3);
+.main-btn{
+display:inline-block;
+padding:16px 28px;
+border-radius:14px;
+text-decoration:none;
+font-family:'Cinzel',serif;
+letter-spacing:2px;
+font-size:.9rem;
+color:#fff;
+background:rgba(0,0,0,.7);
+border:1.5px solid #e6c76a;
+box-shadow:0 10px 25px rgba(0,0,0,.7);
+transition:.3s;
 }
 
-/* Efecto de fuego en el hover */
-.main-btn:hover {
-    transform: scale(1.05);
-    border-color: #ff8c00;
-    box-shadow: 0 0 30px rgba(255, 69, 0, 0.6), inset 0 0 15px rgba(255, 69, 0, 0.4);
-    text-shadow: 0 0 8px #fff;
-}
-
-/* Animación de "llamarada" interna */
-.main-btn::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,140,0,0.2) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.main-btn:hover::after {
-    opacity: 1;
-    animation: flicker 0.1s infinite;
-}
-
-@keyframes flicker {
-    0% { transform: translate(0,0); }
-    50% { transform: translate(-2px, 1px); }
-    100% { transform: translate(1px, -1px); }
+.main-btn:hover{
+transform:scale(1.05);
 }
 
 .footer{
-    margin-top:50px;
-    font-size:.7rem;
-    opacity:.6;
-    letter-spacing: 1px;
+margin-top:50px;
+font-size:.7rem;
+opacity:.6;
 }
 
-/* ESTELA JOKERS */
+/* JOKER */
 .joker{
-    position:fixed;
-    pointer-events:none;
-    z-index: 100;
-    transition: opacity 0.6s ease;
-    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+position:fixed;
+pointer-events:none;
+z-index:999;
 }
 </style>
 </head>
@@ -149,98 +113,86 @@ h1{
 <body>
 
 <video autoplay muted loop playsinline class="bg-video">
-    <source src="video.mp4" type="video/mp4">
+<source src="video.mp4" type="video/mp4">
 </video>
 
 <div class="container">
-    <h1>FICHITAS VIP</h1>
-    <div class="subtitle">ACCESO EXCLUSIVO</div>
+<h1>FICHITAS VIP</h1>
+<div class="subtitle">ACCESO EXCLUSIVO</div>
 
-    <p class="text">
-        Entraste al lugar correcto.<br>
-        <strong>Atención directa y premios reales.</strong>
-    </p>
+<p class="text">
+Entraste al lugar correcto.<br>
+Atención directa y premios reales.
+</p>
 
-    <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
+<div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
-    <a class="main-btn" 
-       href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
-       CELUAPUESTAS
-    </a>
+<a class="main-btn"
+href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
+CELUAPUESTAS
+</a>
 
-    <div class="footer">
-        JUGÁ RESPONSABLEMENTE
-    </div>
+<div class="footer">
+JUGÁ RESPONSABLEMENTE
+</div>
 </div>
 
 <script>
-const trailCount = 6;
+const trailCount = 5;
 const jokers = [];
 const positions = [];
 let target = { x: window.innerWidth/2, y: window.innerHeight/2 };
-let active = false;
-let fadeTimeout;
 
-// Crear los Jokers
-for(let i=0; i<trailCount; i++){
+for(let i=0;i<trailCount;i++){
     const img = document.createElement("img");
     img.src = "joker.png";
     img.className = "joker";
-    const size = 110 - (i*15);
+    const size = 110 - (i*18);
     img.style.width = size + "px";
-    img.style.opacity = 0;
+    img.style.left = "0px";
+    img.style.top = "0px";
     document.body.appendChild(img);
+
     jokers.push(img);
-    positions.push({x: target.x, y: target.y, angle: 0});
+    positions.push({x: target.x, y: target.y});
 }
 
-function updateTarget(x, y){
+function updateTarget(x,y){
     target.x = x;
     target.y = y;
-
-    if(!active){
-        active = true;
-        jokers.forEach(j => j.style.opacity = 1);
-    }
-
-    clearTimeout(fadeTimeout);
-    fadeTimeout = setTimeout(() => {
-        active = false;
-        jokers.forEach(j => j.style.opacity = 0);
-    }, 800);
 }
 
 function animate(){
-    // El primero sigue al mouse con inercia suave
-    positions[0].x += (target.x - positions[0].x) * 0.15;
-    positions[0].y += (target.y - positions[0].y) * 0.15;
 
-    // Los demás siguen al anterior con "lag" y rotación
-    for(let i=1; i<trailCount; i++){
-        positions[i].x += (positions[i-1].x - positions[i].x) * 0.12;
-        positions[i].y += (positions[i-1].y - positions[i].y) * 0.12;
-        
-        // Rotación basada en la velocidad del movimiento
-        const deltaX = positions[i].x - positions[i-1].x;
-        positions[i].angle = deltaX * 0.8;
+    // líder
+    positions[0].x += (target.x - positions[0].x) * 0.12;
+    positions[0].y += (target.y - positions[0].y) * 0.12;
+
+    // cola
+    for(let i=1;i<trailCount;i++){
+        positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
+        positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
     }
 
-    jokers.forEach((j, i) => {
-        j.style.transform = `
-            translate(${positions[i].x - j.offsetWidth/2}px, ${positions[i].y - j.offsetHeight/2}px)
-            rotate(${positions[i].angle}deg)
-        `;
+    jokers.forEach((j,i)=>{
+        j.style.left = (positions[i].x - j.offsetWidth/2) + "px";
+        j.style.top  = (positions[i].y - j.offsetHeight/2) + "px";
     });
 
     requestAnimationFrame(animate);
 }
 
-document.addEventListener("mousemove", e => updateTarget(e.clientX, e.clientY));
-document.addEventListener("touchmove", e => updateTarget(e.touches[0].clientX, e.touches[0].clientY));
+document.addEventListener("mousemove", e=>{
+    updateTarget(e.clientX,e.clientY);
+});
+
+document.addEventListener("touchmove", e=>{
+    const t = e.touches[0];
+    updateTarget(t.clientX,t.clientY);
+},{passive:true});
 
 animate();
 </script>
 
 </body>
-</html>
- 
+</html> 
