@@ -134,67 +134,47 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-let joker = null;
-let targetX = 0;
-let targetY = 0;
-let currentX = 0;
-let currentY = 0;
-let animationFrame;
-
-document.addEventListener("touchstart", function(e){
-let touch = e.touches[0];
-
-targetX = touch.clientX;
-targetY = touch.clientY;
-
-joker = document.createElement("img");
-joker.src = "joker.png";
-joker.style.position = "fixed";
-joker.style.width = "85px";
-joker.style.pointerEvents = "none";
-joker.style.zIndex = "9999";
-joker.style.opacity = "1";
-
-document.body.appendChild(joker);
-
-currentX = targetX;
-currentY = targetY;
-
-animate();
-});
+let jokers = [];
+let maxTrail = 7;
 
 document.addEventListener("touchmove", function(e){
-if(!joker) return;
 let touch = e.touches[0];
-targetX = touch.clientX;
-targetY = touch.clientY;
-});
 
-document.addEventListener("touchend", function(){
-if(joker){
-joker.style.transition = "opacity 0.3s ease";
-joker.style.opacity = "0";
-setTimeout(()=>{
-cancelAnimationFrame(animationFrame);
-joker.remove();
-joker = null;
-},300);
+let j = document.createElement("img");
+j.src = "joker.png";
+j.style.position = "fixed";
+j.style.pointerEvents = "none";
+j.style.zIndex = "9999";
+
+document.body.appendChild(j);
+jokers.push(j);
+
+updateTrail(touch.clientX, touch.clientY);
+
+if(jokers.length > maxTrail){
+let old = jokers.shift();
+old.remove();
 }
 });
 
-function animate(){
-if(!joker) return;
+document.addEventListener("touchend", function(){
+jokers.forEach(j => j.remove());
+jokers = [];
+});
 
-// Cuanto más chico el número, más “trencito”
-currentX += (targetX - currentX) * 0.12;
-currentY += (targetY - currentY) * 0.12;
+function updateTrail(x, y){
+for(let i = 0; i < jokers.length; i++){
 
-joker.style.left = (currentX - 42) + "px";
-joker.style.top = (currentY - 42) + "px";
+let scale = 1 - (i * 0.12);     // tamaño decreciente
+let opacity = 1 - (i * 0.15);   // transparencia progresiva
 
-animationFrame = requestAnimationFrame(animate);
+jokers[i].style.width = (75 * scale) + "px";
+jokers[i].style.left = (x - (37 * scale)) + "px";
+jokers[i].style.top = (y - (37 * scale)) + "px";
+jokers[i].style.opacity = opacity;
+}
 }
 </script>
 
 </body>
-</html>
+</html> 
