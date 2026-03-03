@@ -21,7 +21,6 @@ background:#000;
 -webkit-user-select:none;
 user-select:none;
 -webkit-tap-highlight-color:transparent;
-cursor:pointer;
 }
 
 .bg-video{
@@ -77,7 +76,7 @@ opacity:.7;
 
 .main-btn{
 display:inline-block;
-padding:16px 20px;
+padding:16px 22px;
 border-radius:14px;
 text-decoration:none;
 font-family:'Cinzel',serif;
@@ -93,30 +92,6 @@ transition:.25s;
 .main-btn:hover{
 transform:scale(1.05);
 box-shadow:0 0 25px rgba(230,199,106,.6);
-}
-
-/* JOKER */
-.joker{
-position:fixed;
-width:70px;
-pointer-events:none;
-z-index:9999;
-animation:pop 0.8s ease-out forwards;
-}
-
-@keyframes pop{
-0%{
-transform:scale(0.5) rotate(-10deg);
-opacity:0;
-}
-40%{
-transform:scale(1.1) rotate(5deg);
-opacity:1;
-}
-100%{
-transform:scale(0.9) rotate(0deg);
-opacity:0;
-}
 }
 
 .footer{
@@ -157,21 +132,44 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-document.addEventListener("touchstart", function(e){
-let x = e.touches[0].clientX;
-let y = e.touches[0].clientY;
+let joker = null;
 
-let joker = document.createElement("img");
+document.addEventListener("touchstart", function(e){
+let touch = e.touches[0];
+
+joker = document.createElement("img");
 joker.src = "joker.png";
-joker.className = "joker";
-joker.style.left = (x - 35) + "px";
-joker.style.top = (y - 35) + "px";
+joker.style.position = "fixed";
+joker.style.width = "85px";
+joker.style.pointerEvents = "none";
+joker.style.zIndex = "9999";
+joker.style.transition = "transform 0.08s linear";
 
 document.body.appendChild(joker);
 
-setTimeout(()=>joker.remove(),800);
+moveJoker(touch);
 });
+
+document.addEventListener("touchmove", function(e){
+if(!joker) return;
+let touch = e.touches[0];
+moveJoker(touch);
+});
+
+document.addEventListener("touchend", function(){
+if(joker){
+joker.style.transition = "opacity 0.25s ease";
+joker.style.opacity = "0";
+setTimeout(()=> joker.remove(),250);
+joker = null;
+}
+});
+
+function moveJoker(touch){
+joker.style.left = (touch.clientX - 42) + "px";
+joker.style.top = (touch.clientY - 42) + "px";
+}
 </script>
 
 </body>
-</html> 
+</html>
