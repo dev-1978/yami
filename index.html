@@ -23,7 +23,7 @@ user-select:none;
 -webkit-tap-highlight-color:transparent;
 }
 
-/* VIDEO FONDO */
+/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -101,6 +101,13 @@ margin-top:50px;
 font-size:.7rem;
 opacity:.6;
 }
+
+/* JOKER */
+.joker{
+position:fixed;
+pointer-events:none;
+z-index:9999;
+}
 </style>
 </head>
 
@@ -134,46 +141,43 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-let jokers = [];
-let maxTrail = 7;
+let maxTrail = 8;
 
 document.addEventListener("touchmove", function(e){
+
 let touch = e.touches[0];
 
 let j = document.createElement("img");
 j.src = "joker.png";
-j.style.position = "fixed";
-j.style.pointerEvents = "none";
-j.style.zIndex = "9999";
+j.className = "joker";
+
+let size = 70;
+j.style.width = size + "px";
+j.style.left = (touch.clientX - size/2) + "px";
+j.style.top = (touch.clientY - size/2) + "px";
+j.style.opacity = "1";
 
 document.body.appendChild(j);
-jokers.push(j);
 
-updateTrail(touch.clientX, touch.clientY);
+// animación de fade + shrink
+setTimeout(()=>{
+j.style.transition = "all 0.6s ease";
+j.style.opacity = "0";
+j.style.transform = "scale(0.6)";
+},50);
 
+// eliminar después
+setTimeout(()=>{
+j.remove();
+},650);
+
+// limitar cantidad visible
+let jokers = document.querySelectorAll(".joker");
 if(jokers.length > maxTrail){
-let old = jokers.shift();
-old.remove();
+jokers[0].remove();
 }
+
 });
-
-document.addEventListener("touchend", function(){
-jokers.forEach(j => j.remove());
-jokers = [];
-});
-
-function updateTrail(x, y){
-for(let i = 0; i < jokers.length; i++){
-
-let scale = 1 - (i * 0.12);     // tamaño decreciente
-let opacity = 1 - (i * 0.15);   // transparencia progresiva
-
-jokers[i].style.width = (75 * scale) + "px";
-jokers[i].style.left = (x - (37 * scale)) + "px";
-jokers[i].style.top = (y - (37 * scale)) + "px";
-jokers[i].style.opacity = opacity;
-}
-}
 </script>
 
 </body>
