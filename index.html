@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 min-height:100vh;
@@ -22,13 +18,12 @@ text-align:center;
 overflow:hidden;
 background:#000;
 
-/* 🔥 QUITA SELECCIÓN AZUL */
 -webkit-user-select:none;
 user-select:none;
 -webkit-tap-highlight-color:transparent;
+cursor:pointer;
 }
 
-/* VIDEO FONDO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -38,7 +33,6 @@ object-fit:cover;
 z-index:-2;
 }
 
-/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -101,6 +95,30 @@ transform:scale(1.05);
 box-shadow:0 0 25px rgba(230,199,106,.6);
 }
 
+/* JOKER */
+.joker{
+position:fixed;
+width:70px;
+pointer-events:none;
+z-index:9999;
+animation:pop 0.8s ease-out forwards;
+}
+
+@keyframes pop{
+0%{
+transform:scale(0.5) rotate(-10deg);
+opacity:0;
+}
+40%{
+transform:scale(1.1) rotate(5deg);
+opacity:1;
+}
+100%{
+transform:scale(0.9) rotate(0deg);
+opacity:0;
+}
+}
+
 .footer{
 margin-top:50px;
 font-size:.7rem;
@@ -137,6 +155,23 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 </div>
+
+<script>
+document.addEventListener("touchstart", function(e){
+let x = e.touches[0].clientX;
+let y = e.touches[0].clientY;
+
+let joker = document.createElement("img");
+joker.src = "joker.png";
+joker.className = "joker";
+joker.style.left = (x - 35) + "px";
+joker.style.top = (y - 35) + "px";
+
+document.body.appendChild(joker);
+
+setTimeout(()=>joker.remove(),800);
+});
+</script>
 
 </body>
 </html> 
