@@ -8,7 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 min-height:100vh;
@@ -102,7 +106,7 @@ font-size:.7rem;
 opacity:.6;
 }
 
-/* JOKER */
+/* Joker */
 .joker{
 position:fixed;
 pointer-events:none;
@@ -142,10 +146,10 @@ JUGÁ RESPONSABLEMENTE
 
 <script>
 let maxTrail = 8;
+let lastTime = 0;
+let delay = 100; // subí este número si lo querés aún más lento
 
-document.addEventListener("touchmove", function(e){
-
-let touch = e.touches[0];
+function createJoker(x, y){
 
 let j = document.createElement("img");
 j.src = "joker.png";
@@ -153,30 +157,46 @@ j.className = "joker";
 
 let size = 70;
 j.style.width = size + "px";
-j.style.left = (touch.clientX - size/2) + "px";
-j.style.top = (touch.clientY - size/2) + "px";
+j.style.left = (x - size/2) + "px";
+j.style.top = (y - size/2) + "px";
 j.style.opacity = "1";
 
 document.body.appendChild(j);
 
-// animación de fade + shrink
+// animación más suave y lenta
 setTimeout(()=>{
-j.style.transition = "all 0.6s ease";
+j.style.transition = "all 1s ease";
 j.style.opacity = "0";
-j.style.transform = "scale(0.6)";
+j.style.transform = "scale(0.5)";
 },50);
 
-// eliminar después
 setTimeout(()=>{
 j.remove();
-},650);
+},1050);
 
-// limitar cantidad visible
 let jokers = document.querySelectorAll(".joker");
 if(jokers.length > maxTrail){
 jokers[0].remove();
 }
+}
 
+function handleMove(x, y){
+let now = Date.now();
+if(now - lastTime > delay){
+createJoker(x, y);
+lastTime = now;
+}
+}
+
+/* Celular */
+document.addEventListener("touchmove", function(e){
+let touch = e.touches[0];
+handleMove(touch.clientX, touch.clientY);
+});
+
+/* PC */
+document.addEventListener("mousemove", function(e){
+handleMove(e.clientX, e.clientY);
 });
 </script>
 
