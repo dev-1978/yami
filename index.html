@@ -5,8 +5,7 @@
 <title>FICHITAS VIP 👑</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png" sizes="32x32" href="joker.png">
-<link rel="shortcut icon" href="joker.png">
+<link rel="icon" type="image/png" href="joker.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
@@ -20,10 +19,6 @@ color:#fff;
 text-align:center;
 overflow:hidden;
 background:#000;
-
--webkit-user-select:none;
-user-select:none;
--webkit-tap-highlight-color:transparent;
 }
 
 /* VIDEO */
@@ -50,15 +45,7 @@ max-width:420px;
 margin:0 auto;
 padding:110px 20px 60px;
 position:relative;
-z-index:2;
-}
-
-/* TITULO CON JOKER */
-.title-wrap{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
+z-index:5;
 }
 
 h1{
@@ -66,22 +53,12 @@ font-family:'Cinzel',serif;
 font-size:2.6rem;
 letter-spacing:6px;
 color:#e6c76a;
-}
-
-.title-joker{
-width:40px;
-filter:drop-shadow(0 0 10px rgba(230,199,106,.6));
-animation:floatJoker 3s ease-in-out infinite;
-}
-
-@keyframes floatJoker{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-6px);}
+margin-bottom:10px;
 }
 
 .subtitle{
 letter-spacing:4px;
-margin:25px 0;
+margin-bottom:30px;
 opacity:.9;
 }
 
@@ -97,9 +74,10 @@ margin-bottom:35px;
 opacity:.7;
 }
 
+/* BOTÓN */
 .main-btn{
 display:inline-block;
-padding:16px 22px;
+padding:14px 30px;
 border-radius:14px;
 text-decoration:none;
 font-family:'Cinzel',serif;
@@ -114,7 +92,6 @@ transition:.25s;
 
 .main-btn:hover{
 transform:scale(1.05);
-box-shadow:0 0 25px rgba(230,199,106,.6);
 }
 
 .footer{
@@ -127,8 +104,9 @@ opacity:.6;
 .joker{
 position:fixed;
 pointer-events:none;
-z-index:9999;
-transition:all .6s ease;
+z-index:3;
+will-change:transform;
+transition:transform 0.3s linear;
 }
 </style>
 </head>
@@ -141,11 +119,7 @@ transition:all .6s ease;
 
 <div class="container">
 
-<div class="title-wrap">
 <h1>FICHITAS VIP</h1>
-<img src="joker.png" class="title-joker">
-</div>
-
 <div class="subtitle">ACCESO EXCLUSIVO</div>
 
 <p class="text">
@@ -156,7 +130,7 @@ Atención directa y premios reales.
 <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
 <a class="main-btn"
-href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
+href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila,%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
 CELUAPUESTAS
 </a>
 
@@ -167,49 +141,50 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-let trail = [];
-let maxTrail = 8;
-let delay = 90;
-let lastTime = 0;
+const trailLength = 7;
+const jokers = [];
+const positions = [];
 
-function handleMove(x,y){
-let now = Date.now();
-if(now - lastTime < delay) return;
-lastTime = now;
-
-let j = document.createElement("img");
-j.src = "joker.png";
-j.className = "joker";
-
-trail.unshift(j);
-document.body.appendChild(j);
-
-if(trail.length > maxTrail){
-trail[trail.length - 1].remove();
-trail.pop();
+for(let i=0;i<trailLength;i++){
+    const img = document.createElement("img");
+    img.src = "joker.png";
+    img.className = "joker";
+    document.body.appendChild(img);
+    jokers.push(img);
+    positions.push({x:window.innerWidth/2,y:window.innerHeight/2});
 }
 
-trail.forEach((joker, index)=>{
-let baseSize = 110;
-let size = baseSize - (index * 12);
-if(size < 40) size = 40;
-
-joker.style.width = size + "px";
-joker.style.left = (x - size/2) + "px";
-joker.style.top = (y - size/2) + "px";
-joker.style.opacity = 1 - (index * 0.12);
+document.addEventListener("mousemove", move);
+document.addEventListener("touchmove", e => {
+    move(e.touches[0]);
 });
+
+function move(e){
+    positions[0] = {x:e.clientX,y:e.clientY};
 }
 
-document.addEventListener("touchmove", function(e){
-let touch = e.touches[0];
-handleMove(touch.clientX, touch.clientY);
-});
+function animate(){
+    for(let i=1;i<trailLength;i++){
+        positions[i].x += (positions[i-1].x - positions[i].x) * 0.15;
+        positions[i].y += (positions[i-1].y - positions[i].y) * 0.15;
+    }
 
-document.addEventListener("mousemove", function(e){
-handleMove(e.clientX, e.clientY);
-});
+    jokers.forEach((img,index)=>{
+        let baseSize = 130;
+        let size = baseSize - (index * 18);
+        if(size < 35) size = 35;
+
+        img.style.width = size + "px";
+        img.style.transform =
+        `translate(${positions[index].x - size/2}px, ${positions[index].y - size/2}px)`;
+        img.style.opacity = 1 - (index * 0.12);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
-</html>
+</html> 
