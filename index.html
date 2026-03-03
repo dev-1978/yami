@@ -27,7 +27,6 @@ user-select:none;
 -webkit-tap-highlight-color:transparent;
 }
 
-/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -37,7 +36,6 @@ object-fit:cover;
 z-index:-2;
 }
 
-/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -106,7 +104,6 @@ font-size:.7rem;
 opacity:.6;
 }
 
-/* Joker */
 .joker{
 position:fixed;
 pointer-events:none;
@@ -145,9 +142,9 @@ JUGÁ RESPONSABLEMENTE
 </div>
 
 <script>
-let maxTrail = 8;
+let maxTrail = 10;
 let lastTime = 0;
-let delay = 100; // subí este número si lo querés aún más lento
+let delay = 110; // velocidad más tranquila
 
 function createJoker(x, y){
 
@@ -155,7 +152,7 @@ let j = document.createElement("img");
 j.src = "joker.png";
 j.className = "joker";
 
-let size = 70;
+let size = 95; // tamaño visible pero premium
 j.style.width = size + "px";
 j.style.left = (x - size/2) + "px";
 j.style.top = (y - size/2) + "px";
@@ -163,16 +160,15 @@ j.style.opacity = "1";
 
 document.body.appendChild(j);
 
-// animación más suave y lenta
 setTimeout(()=>{
-j.style.transition = "all 1s ease";
+j.style.transition = "all 1.1s ease";
 j.style.opacity = "0";
-j.style.transform = "scale(0.5)";
+j.style.transform = "scale(0.6)";
 },50);
 
 setTimeout(()=>{
 j.remove();
-},1050);
+},1150);
 
 let jokers = document.querySelectorAll(".joker");
 if(jokers.length > maxTrail){
@@ -188,13 +184,11 @@ lastTime = now;
 }
 }
 
-/* Celular */
 document.addEventListener("touchmove", function(e){
 let touch = e.touches[0];
 handleMove(touch.clientX, touch.clientY);
 });
 
-/* PC */
 document.addEventListener("mousemove", function(e){
 handleMove(e.clientX, e.clientY);
 });
