@@ -41,6 +41,7 @@ background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.85));
 z-index:-1;
 }
 
+/* CONTENIDO */
 .container{
 max-width:420px;
 margin:0 auto;
@@ -105,7 +106,6 @@ opacity:.6;
 .joker{
 position:fixed;
 pointer-events:none;
-z-index:999;
 }
 </style>
 </head>
@@ -141,43 +141,66 @@ JUGÁ RESPONSABLEMENTE
 const trailCount = 5;
 const jokers = [];
 const positions = [];
-let target = { x: window.innerWidth/2, y: window.innerHeight/2 };
+let target = { x: 0, y: 0 };
+let active = false;
 
 for(let i=0;i<trailCount;i++){
+
     const img = document.createElement("img");
     img.src = "joker.png";
     img.className = "joker";
+
     const size = 110 - (i*18);
     img.style.width = size + "px";
     img.style.left = "0px";
     img.style.top = "0px";
+    img.style.opacity = "0";
+    img.style.zIndex = 1000 - i; // líder arriba
+
     document.body.appendChild(img);
 
     jokers.push(img);
-    positions.push({x: target.x, y: target.y});
+    positions.push({x:0,y:0});
 }
 
 function updateTarget(x,y){
+
+    if(!active){
+        active = true;
+
+        jokers.forEach(j=>{
+            j.style.opacity = "1";
+        });
+
+        positions.forEach(p=>{
+            p.x = x;
+            p.y = y;
+        });
+    }
+
     target.x = x;
     target.y = y;
 }
 
 function animate(){
 
-    // líder
-    positions[0].x += (target.x - positions[0].x) * 0.12;
-    positions[0].y += (target.y - positions[0].y) * 0.12;
+    if(active){
 
-    // cola
-    for(let i=1;i<trailCount;i++){
-        positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
-        positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
+        // líder
+        positions[0].x += (target.x - positions[0].x) * 0.12;
+        positions[0].y += (target.y - positions[0].y) * 0.12;
+
+        // cola
+        for(let i=1;i<trailCount;i++){
+            positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
+            positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
+        }
+
+        jokers.forEach((j,i)=>{
+            j.style.left = (positions[i].x - j.offsetWidth/2) + "px";
+            j.style.top  = (positions[i].y - j.offsetHeight/2) + "px";
+        });
     }
-
-    jokers.forEach((j,i)=>{
-        j.style.left = (positions[i].x - j.offsetWidth/2) + "px";
-        j.style.top  = (positions[i].y - j.offsetHeight/2) + "px";
-    });
 
     requestAnimationFrame(animate);
 }
@@ -195,4 +218,4 @@ animate();
 </script>
 
 </body>
-</html>
+</html> 
