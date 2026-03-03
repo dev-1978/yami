@@ -1,4 +1,3 @@
-<!-- force rebuild -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,8 +45,6 @@ z-index:-1;
 max-width:420px;
 margin:0 auto;
 padding:110px 20px 60px;
-position:relative;
-z-index:5;
 }
 
 h1{
@@ -78,7 +75,7 @@ opacity:.7;
 
 .main-btn{
 display:inline-block;
-padding:14px 30px;
+padding:16px 28px;
 border-radius:14px;
 text-decoration:none;
 font-family:'Cinzel',serif;
@@ -88,7 +85,7 @@ color:#fff;
 background:rgba(0,0,0,.6);
 border:1.5px solid #e6c76a;
 box-shadow:0 10px 25px rgba(0,0,0,.7);
-transition:.25s;
+transition:.3s;
 }
 
 .main-btn:hover{
@@ -101,11 +98,12 @@ font-size:.7rem;
 opacity:.6;
 }
 
+/* COMETA */
 .joker{
 position:fixed;
 pointer-events:none;
-z-index:3;
-opacity:0;
+will-change:transform;
+transition:transform .15s linear;
 }
 </style>
 </head>
@@ -117,7 +115,6 @@ opacity:0;
 </video>
 
 <div class="container">
-
 <h1>FICHITAS VIP</h1>
 <div class="subtitle">ACCESO EXCLUSIVO</div>
 
@@ -129,85 +126,51 @@ Atención directa y premios reales.
 <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
 <a class="main-btn"
-href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila,%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
+href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yamila%20quiero%20un%20usuario,%20mi%20nombre%20es%20:">
 CELUAPUESTAS
 </a>
 
 <div class="footer">
 JUGÁ RESPONSABLEMENTE
 </div>
-
 </div>
 
 <script>
-const trailLength = 6;
+const trailCount = 5;
 const jokers = [];
 const positions = [];
-let mouse = {x:window.innerWidth/2,y:window.innerHeight/2};
-let active = false;
 
-// crear jokers
-for(let i=0;i<trailLength;i++){
-    const img = document.createElement("img");
-    img.src = "joker.png";
-    img.className = "joker";
-    document.body.appendChild(img);
-    jokers.push(img);
-    positions.push({x:mouse.x,y:mouse.y});
+for(let i=0;i<trailCount;i++){
+  const img = document.createElement("img");
+  img.src = "joker.png";
+  img.className = "joker";
+  const size = 90 - (i*15); // decreciente premium
+  img.style.width = size + "px";
+  img.style.opacity = 1 - (i*0.15);
+  document.body.appendChild(img);
+  jokers.push(img);
+  positions.push({x:window.innerWidth/2,y:window.innerHeight/2});
 }
 
-function activate(x,y){
-    active = true;
-    mouse.x = x;
-    mouse.y = y;
+document.addEventListener("mousemove", move);
+document.addEventListener("touchmove", e=>{
+  move(e.touches[0]);
+});
+
+function move(e){
+  positions[0].x = e.clientX;
+  positions[0].y = e.clientY;
+
+  for(let i=1;i<trailCount;i++){
+    positions[i].x += (positions[i-1].x - positions[i].x)*0.12;
+    positions[i].y += (positions[i-1].y - positions[i].y)*0.12;
+  }
+
+  jokers.forEach((j,i)=>{
+    j.style.transform = `translate(${positions[i].x - j.offsetWidth/2}px, ${positions[i].y - j.offsetHeight/2}px)`;
+  });
 }
-
-document.addEventListener("mousemove",e=>{
-    activate(e.clientX,e.clientY);
-});
-
-document.addEventListener("click",e=>{
-    activate(e.clientX,e.clientY);
-});
-
-document.addEventListener("touchstart",e=>{
-    const t = e.touches[0];
-    activate(t.clientX,t.clientY);
-});
-
-document.addEventListener("touchmove",e=>{
-    const t = e.touches[0];
-    activate(t.clientX,t.clientY);
-});
-
-function animate(){
-    if(active){
-
-        // cabeza principal más suave
-        positions[0].x += (mouse.x - positions[0].x) * 0.10;
-        positions[0].y += (mouse.y - positions[0].y) * 0.10;
-
-        for(let i=1;i<trailLength;i++){
-            positions[i].x += (positions[i-1].x - positions[i].x) * 0.10;
-            positions[i].y += (positions[i-1].y - positions[i].y) * 0.10;
-        }
-
-        jokers.forEach((img,index)=>{
-            let size = 130 - (index * 20);
-            if(size < 35) size = 35;
-
-            img.style.width = size + "px";
-            img.style.transform =
-            `translate(${positions[index].x - size/2}px, ${positions[index].y - size/2}px)`;
-            img.style.opacity = 1 - (index * 0.15);
-        });
-    }
-
-    requestAnimationFrame(animate);
-}
-
-animate();
 </script>
 
 </body>
-</html>
+</html> 
