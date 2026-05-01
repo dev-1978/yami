@@ -77,6 +77,7 @@ color:#e6c76a;
 font-weight:600;
 }
 
+/* EDAD */
 .age{
 font-size:.8rem;
 letter-spacing:2px;
@@ -105,7 +106,7 @@ transition:.3s;
 transform:scale(1.05);
 }
 
-/* BOTONES PLATAFORMAS */
+/* BOTONES BASE */
 .second-btn{
 display:inline-block;
 margin-top:12px;
@@ -115,16 +116,26 @@ text-decoration:none;
 font-family:'Cinzel',serif;
 letter-spacing:2px;
 font-size:.8rem;
+transition:.3s;
+}
+
+/* CELUAPUESTAS (confianza) */
+.second-btn.celu{
+color:#fff;
+background:rgba(0,0,0,.7);
+border:1px solid #e6c76a;
+box-shadow:0 8px 20px rgba(0,0,0,.6);
+}
+
+/* WINCLASH (impulso) */
+.second-btn.win{
 color:#000;
 background:linear-gradient(135deg,#ffd700,#ff8c00);
-border:none;
 box-shadow:0 10px 30px rgba(255,140,0,.5);
-transition:.3s;
 }
 
 .second-btn:hover{
 transform:scale(1.07);
-box-shadow:0 15px 40px rgba(255,140,0,.8);
 }
 
 .footer{
@@ -167,16 +178,16 @@ CONTACTAR A CLAU 💬
 
 <br>
 
-<a class="second-btn"
+<a class="second-btn celu"
 href="https://celuapuestas.bond" target="_blank">
-CELUAPUESTAS 🎰
+INGRESAR A CELUAPUESTAS 🎰
 </a>
 
 <br>
 
-<a class="second-btn"
+<a class="second-btn win"
 href="https://winclash.lat" target="_blank">
-WINCLASH 🔥
+PROBAR WINCLASH 🔥
 </a>
 
 <div class="footer">
@@ -194,7 +205,6 @@ let active = false;
 const button = document.querySelector(".main-btn");
 
 for(let i=0;i<trailCount;i++){
-
     const img = document.createElement("img");
     img.src = "joker.png";
     img.className = "joker";
@@ -222,7 +232,6 @@ function isOverButton(x,y){
 }
 
 function updateTarget(x,y){
-
     if(isOverButton(x,y)){
         jokers.forEach(j => j.style.opacity = "0");
         return;
@@ -243,9 +252,7 @@ function updateTarget(x,y){
 }
 
 function animate(){
-
     if(active){
-
         positions[0].x += (target.x - positions[0].x) * 0.08;
         positions[0].y += (target.y - positions[0].y) * 0.08;
 
