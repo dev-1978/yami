@@ -21,6 +21,7 @@ background:#000;
 user-select:none;
 }
 
+/* VIDEO */
 .bg-video{
 position:fixed;
 inset:0;
@@ -30,6 +31,7 @@ object-fit:cover;
 z-index:-2;
 }
 
+/* OVERLAY */
 body::before{
 content:"";
 position:fixed;
@@ -38,6 +40,7 @@ background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.9));
 z-index:-1;
 }
 
+/* CONTENIDO */
 .container{
 max-width:420px;
 margin:0 auto;
@@ -81,6 +84,7 @@ opacity:.7;
 color:#ff4d4d;
 }
 
+/* BOTÓN WHATSAPP (protagonista) */
 .main-btn{
 display:inline-block;
 padding:16px 28px;
@@ -101,39 +105,45 @@ animation:pulse 3s infinite;
 transform:scale(1.05);
 }
 
+/* LATIDO SUAVE */
 @keyframes pulse{
 0%{box-shadow:0 0 0 0 rgba(230,199,106,0.4);}
 70%{box-shadow:0 0 0 12px rgba(230,199,106,0);}
 100%{box-shadow:0 0 0 0 rgba(230,199,106,0);}
 }
 
+/* BOTONES PLATAFORMA (apagados) */
 .second-btn{
 display:inline-block;
 margin-top:12px;
-padding:13px 24px;
+padding:11px 20px;
 border-radius:12px;
 text-decoration:none;
 font-family:'Cinzel',serif;
 letter-spacing:2px;
-font-size:.8rem;
+font-size:.75rem;
 transition:.3s;
+opacity:.75;
 }
 
+/* WINCLASH (leve) */
 .second-btn.win{
 color:#000;
 background:linear-gradient(135deg,#ffd700,#ff8c00);
-box-shadow:0 10px 30px rgba(255,140,0,.5);
+box-shadow:0 6px 18px rgba(255,140,0,.4);
 }
 
+/* CELUAPUESTAS (leve) */
 .second-btn.celu{
 color:#fff;
-background:rgba(0,0,0,.7);
+background:rgba(0,0,0,.6);
 border:1px solid #e6c76a;
-box-shadow:0 8px 20px rgba(0,0,0,.6);
+box-shadow:0 6px 15px rgba(0,0,0,.5);
 }
 
 .second-btn:hover{
-transform:scale(1.07);
+transform:scale(1.05);
+opacity:1;
 }
 
 .footer{
@@ -142,6 +152,7 @@ font-size:.7rem;
 opacity:.6;
 }
 
+/* JOKER */
 .joker{
 position:fixed;
 pointer-events:none;
@@ -164,12 +175,12 @@ Entraste al lugar correcto.<br>
 Atención directa y premios reales.
 </p>
 
-<div class="phone">📱 Atención directa: +54 9 11 3259-2708</div>
+<div class="phone">📱 Atención directa: +54 9 11 3259 2708</div>
 
 <div class="age">🔞 SOLO MAYORES DE 18 AÑOS</div>
 
 <a class="main-btn"
-href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yami,%20quiero%20empezar%20a%20jugar%20ahora,%20mi%20nombre%20es%20">
+href="https://wa.me/5491132592708?text=Hola%20Clau%20vengo%20de%20parte%20de%20Yami,%20quiero%20un%20usuario,%20mi%20nombre%20es%20">
 HABLAR CON CLAU 💬
 </a>
 
@@ -177,14 +188,14 @@ HABLAR CON CLAU 💬
 
 <a class="second-btn win"
 href="https://winclash.lat" target="_blank">
-PROBAR WINCLASH 🔥
+WINCLASH 🔥
 </a>
 
 <br>
 
 <a class="second-btn celu"
 href="https://celuapuestas.bond" target="_blank">
-INGRESAR A CELUAPUESTAS 🎰
+CELUAPUESTAS 🎰
 </a>
 
 <div class="footer">
